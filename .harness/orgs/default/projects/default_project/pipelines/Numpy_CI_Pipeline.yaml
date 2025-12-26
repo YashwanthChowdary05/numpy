@@ -20,6 +20,7 @@ pipeline:
           cloneCodebase: true
           caching:
             enabled: true
+            key: py-cache-master
             override: true
           buildIntelligence:
             enabled: true
