@@ -29,7 +29,7 @@ pipeline:
                     build:
                       type: branch
                       spec:
-                        branch: main
+                        branch: Numpy-CI-Pipeline
           platform:
             os: Linux
             arch: Amd64
