@@ -1,5 +1,5 @@
 pipeline:
-  name: Build numpy
+  name: Numpy CI
   identifier: Build_numpy_1766735815610
   projectIdentifier: default_project
   orgIdentifier: default
@@ -31,3 +31,4 @@ pipeline:
         connectorRef: account.gitconnector
         repoName: numpy
         build: <+input>
+  tags: {}
