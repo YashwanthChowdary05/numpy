@@ -41,3 +41,17 @@ pipeline:
                     command: |-
                       python -m pip install --upgrade pip
                       pip install -r ./requirements/all_requirements.txt
+              - step:
+                  type: Run
+                  name: Test
+                  identifier: test
+                  spec:
+                    shell: Sh
+                    command: |-
+                      pip install pytest
+                      pytest tests.py --junit-xml=report.xml
+                    reports:
+                      type: JUnit
+                      spec:
+                        path:
+                          - numpy/tests
