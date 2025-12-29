@@ -34,31 +34,13 @@ pipeline:
             steps:
               - step:
                   type: Run
-                  name: Build and Install
+                  name: Run_1
                   identifier: Run_1
                   spec:
                     shell: Sh
                     command: |-
-                      echo "Installing system compilers..."
-                      sudo apt-get update
-                      sudo apt-get install -y build-essential gfortran libopenblas-dev python3-dev git
-
-                      echo "Fetching submodules..."
-                      git submodule sync
-                      git submodule update --init --recursive
-
-                      python -m venv venv
-                      . venv/bin/activate
-
-                      echo "Upgrading pip..."
                       python -m pip install --upgrade pip
-
-                      pip install meson-python ninja setuptools wheel cython
-
-                      echo "Compiling NumPy..."
-                      pip install .
-
-                      pip install pytest
+                      pip install -r ./requirements/all_requirements.txt
               - step:
                   type: Run
                   name: Test
@@ -66,13 +48,8 @@ pipeline:
                   spec:
                     shell: Sh
                     command: |-
-                      . venv/bin/activate
-
-                      mkdir test_run
-                      cd test_run
-
-                      echo "Running Pytest..."
-                      pytest --pyargs numpy --junit-xml=../report.xml
+                      pip install pytest
+                      pytest tests.py --junit-xml=report.xml
                     reports:
                       type: JUnit
                       spec:
