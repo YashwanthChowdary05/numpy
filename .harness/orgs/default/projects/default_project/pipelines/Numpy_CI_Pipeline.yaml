@@ -42,16 +42,20 @@ pipeline:
                       python -m pip install --upgrade pip
                       pip install -r ./requirements/all_requirements.txt
               - step:
-                  type: Run
-                  name: Test
-                  identifier: test
+                  type: Test
+                  name: runTestsWithIntelligence
+                  identifier: runTestsWithIntelligence
                   spec:
-                    shell: Sh
+                    connectorRef: account.gitconnector
+                    repoName: numpy
+                    image: python:latest
                     command: |-
-                      pip install pytest
-                      pytest tests.py --junit-xml=report.xml
-                    reports:
-                      type: JUnit
-                      spec:
-                        path:
-                          - report.xml
+                      python3 -m venv .venv
+                      . .venv/bin/activate
+
+                      python3 -m pip install -r requirements/test.txt
+                      python3 -m pip install -e .
+
+                      pytest
+                    shell: Python
+                    intelligenceMode: true
