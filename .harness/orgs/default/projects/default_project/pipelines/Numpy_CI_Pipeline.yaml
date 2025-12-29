@@ -39,21 +39,23 @@ pipeline:
                   spec:
                     shell: Sh
                     command: |-
-                      if command -v git &> /dev/null; then
-                        echo "Initializing git submodules..."
-                        git submodule sync
-                        git submodule update --init --recursive
-                      else
-                        echo "WARNING: Git not found. Skipping submodule update."
-                      fi
+                      echo "Installing system compilers..."
+                      sudo apt-get update
+                      sudo apt-get install -y build-essential gfortran libopenblas-dev python3-dev git
+
+                      echo "Fetching submodules..."
+                      git submodule sync
+                      git submodule update --init --recursive
 
                       python -m venv venv
                       . venv/bin/activate
 
+                      echo "Upgrading pip..."
                       python -m pip install --upgrade pip
 
-                      pip install meson-python ninja setuptools wheel
+                      pip install meson-python ninja setuptools wheel cython
 
+                      echo "Compiling NumPy..."
                       pip install .
 
                       pip install pytest
@@ -69,6 +71,7 @@ pipeline:
                       mkdir test_run
                       cd test_run
 
+                      echo "Running Pytest..."
                       pytest --pyargs numpy --junit-xml=../report.xml
                     reports:
                       type: JUnit
