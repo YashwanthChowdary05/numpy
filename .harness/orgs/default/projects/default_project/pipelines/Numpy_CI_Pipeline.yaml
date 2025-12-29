@@ -20,8 +20,9 @@ pipeline:
           cloneCodebase: true
           caching:
             enabled: true
-            key: py-cache-master
-            override: true
+            key: py-cache-{{ checksum "requirements/all_requirements.txt" }}
+            paths:
+              - .venv
           buildIntelligence:
             enabled: true
           platform:
@@ -34,21 +35,26 @@ pipeline:
             steps:
               - step:
                   type: Run
-                  name: Run_1
-                  identifier: Run_1
+                  name: Install Dependencies
+                  identifier: Install_Dependencies
                   spec:
                     shell: Sh
                     command: |-
+                      python -m venv .venv
+                      . .venv/bin/activate
+
                       python -m pip install --upgrade pip
                       pip install -r ./requirements/all_requirements.txt
+                      pip install pytest
               - step:
                   type: Run
-                  name: Test
-                  identifier: test
+                  name: Run Tests
+                  identifier: Run_Tests
                   spec:
                     shell: Sh
                     command: |-
-                      pip install pytest
+                      . .venv/bin/activate
+
                       pytest tests.py --junit-xml=report.xml
                     reports:
                       type: JUnit
