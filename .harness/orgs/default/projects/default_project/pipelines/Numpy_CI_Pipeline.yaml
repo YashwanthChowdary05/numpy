@@ -34,13 +34,19 @@ pipeline:
             steps:
               - step:
                   type: Run
-                  name: Run_1
+                  name: Build and Install
                   identifier: Run_1
                   spec:
                     shell: Sh
                     command: |-
+                      python -m venv venv
+                      . venv/bin/activate
+
                       python -m pip install --upgrade pip
-                      pip install -r ./requirements/all_requirements.txt
+
+                      pip install .
+
+                      pip install pytest
               - step:
                   type: Run
                   name: Test
@@ -48,8 +54,12 @@ pipeline:
                   spec:
                     shell: Sh
                     command: |-
-                      pip install pytest
-                      pytest tests.py --junit-xml=report.xml
+                      . venv/bin/activate
+
+                      mkdir test_run
+                      cd test_run
+
+                      pytest --pyargs numpy --junit-xml=../report.xml
                     reports:
                       type: JUnit
                       spec:
