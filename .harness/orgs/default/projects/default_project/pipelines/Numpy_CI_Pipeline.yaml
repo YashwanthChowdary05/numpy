@@ -55,7 +55,7 @@ pipeline:
                     command: |-
                       . .venv/bin/activate
 
-                      pytest tests.py --junit-xml=report.xml
+                      pytest --junit-xml=report.xml
                     envVariables:
                       PIP_CACHE_DIR: /root/.cache
                     reports:
