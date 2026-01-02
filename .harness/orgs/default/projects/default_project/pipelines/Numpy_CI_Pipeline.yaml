@@ -48,18 +48,17 @@ pipeline:
                       pip install pytest
               - step:
                   type: Run
-                  name: Run Tests
-                  identifier: Run_Tests
+                  name: Test
+                  identifier: test
                   spec:
                     shell: Sh
                     command: |-
-                      . .venv/bin/activate
-
-                      pytest ./numpy/tests --junit-xml=report.xml
+                      pip install pytest
+                      pytest tests.py --junit-xml=report.xml
                     envVariables:
                       PIP_CACHE_DIR: /root/.cache
                     reports:
                       type: JUnit
                       spec:
-                        path:
+                        paths:
                           - report.xml
