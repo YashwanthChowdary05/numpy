@@ -55,11 +55,11 @@ pipeline:
                     command: |-
                       . .venv/bin/activate
 
-                      pytest --junit-xml=report.xml
+                      pytest ./numpy/tests --junit-xml=report.xml
                     envVariables:
                       PIP_CACHE_DIR: /root/.cache
                     reports:
                       type: JUnit
                       spec:
                         path:
-                          - ./numpy/tests/*.py
+                          - report.xml
