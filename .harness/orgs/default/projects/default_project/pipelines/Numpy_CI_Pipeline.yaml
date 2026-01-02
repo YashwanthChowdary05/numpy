@@ -62,4 +62,4 @@ pipeline:
                       type: JUnit
                       spec:
                         path:
-                          - report.xml
+                          - ./numpy/tests/*.py
