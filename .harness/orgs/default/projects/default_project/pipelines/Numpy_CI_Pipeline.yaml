@@ -54,11 +54,11 @@ pipeline:
                     shell: Sh
                     command: |-
                       pip install pytest
-                      pytest ./numpy/tests --junit-xml=report.xml
+                      pytest test_all_.py --junit-xml=report.xml
                     envVariables:
                       PIP_CACHE_DIR: /root/.cache
                     reports:
                       type: JUnit
                       spec:
                         paths:
-                          - ./numpy/tests
+                          - report.xml
