@@ -49,9 +49,9 @@ pipeline:
                     shell: Sh
                     command: |-
                       pip install pytest
-                      pytest test_all_.py --junit-xml=report.xml
+                      pytest test__all__.py --junit-xml=report.xml
                     reports:
                       type: JUnit
                       spec:
                         path:
-                          - numpy/numpy/tests/*.py
+                          - numpy/numpy/tests
