@@ -49,7 +49,7 @@ pipeline:
                     shell: Sh
                     command: |-
                       pip install pytest
-                      pytest /harness/numpy/tests/test__all__.py --junit-xml=report.xml
+                      pytest tests --junit-xml=report.xml
                     reports:
                       type: JUnit
                       spec:
