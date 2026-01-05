@@ -59,6 +59,6 @@ pipeline:
                       python3 -m pip install -e 
 
                       pytest
-                    path: ./numpy/tests/*.py
+                    path: ./numpy/tests
                     shell: Python
                     intelligenceMode: true
