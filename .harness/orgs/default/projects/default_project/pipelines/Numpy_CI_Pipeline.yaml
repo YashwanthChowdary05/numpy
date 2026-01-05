@@ -49,7 +49,7 @@ pipeline:
                     shell: Sh
                     command: |-
                       pip install pytest
-                      pytest tests.py --junit-xml=report.xml
+                      pytest --junit-xml=report.xml
                     reports:
                       type: JUnit
                       spec:
